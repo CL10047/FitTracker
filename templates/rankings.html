@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Rankings - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/rankings.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section id="dashboard-section" class="bg-lightgrey">
+		<div class="container">
+			<h5>Rankings</h5>
+			<h6>Bench Press</h6>
+			<table>
+				<colgroup>
+					<col style="width:10%" />
+					<col style="width:40%" />
+					<col style="width:25%" />
+					<col style="width:25%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">#</th>
+					<th class="text-center">User</th>
+					<th class="text-center">Weight</th>
+					<th class="text-center">Date</th>
+				</tr>
+				{% for ranking, exercise_name, user in bench_press_rankings %}
+					<tr>
+						<td class="text-center">{{ loop.index }}.</td>
+						{% if user.nickname %}
+  							<td class="text-center">{{ user.nickname }}</td>
+						{% else %}
+ 							<td class="text-center">{{ user.email }}</td>
+						{% endif %}
+						<td class="text-center">{{ ranking.weight }}</td>
+						<td class="text-center">{{ ranking.date_created }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<h6>Squat</h6>
+			<table>
+				<colgroup>
+					<col style="width:10%" />
+					<col style="width:40%" />
+					<col style="width:25%" />
+					<col style="width:25%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">#</th>
+					<th class="text-center">User</th>
+					<th class="text-center">Weight</th>
+					<th class="text-center">Date</th>
+				</tr>
+				{% for ranking, exercise_name, user in squat_rankings %}
+					<tr>
+						<td class="text-center">{{ loop.index }}.</td>
+						{% if user.nickname %}
+  							<td class="text-center">{{ user.nickname }}</td>
+						{% else %}
+ 							<td class="text-center">{{ user.email }}</td>
+						{% endif %}
+						<td class="text-center">{{ ranking.weight }}</td>
+						<td class="text-center">{{ ranking.date_created }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+			<h6>Deadlift</h6>
+			<table>
+				<colgroup>
+					<col style="width:10%" />
+					<col style="width:40%" />
+					<col style="width:25%" />
+					<col style="width:25%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">#</th>
+					<th class="text-center">User</th>
+					<th class="text-center">Weight</th>
+					<th class="text-center">Date</th>
+				</tr>
+				{% for ranking, exercise_name, user in deadlift_rankings %}
+					<tr>
+						<td class="text-center">{{ loop.index }}.</td>
+						{% if user.nickname %}
+  							<td class="text-center">{{ user.nickname }}</td>
+						{% else %}
+ 							<td class="text-center">{{ user.email }}</td>
+						{% endif %}
+						<td class="text-center">{{ ranking.weight }}</td>
+						<td class="text-center">{{ ranking.date_created }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>  
+	</section>
+{% endblock %}
+

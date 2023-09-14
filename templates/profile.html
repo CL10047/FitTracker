@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Profile - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section class="bg-dark text-white">
+		<div class="container">
+			<h1 class="h3">
+                Profile
+            </h1>
+			<form id="edit-profile-form" action="{{ url_for('profile') }}" method="POST">
+				<h2 class="h5">Nickname:</h2>
+				<div class="form-input">
+					<input id="nickname-field" type="nickname" name="nickname" value="" required>
+				</div>
+				<button type="submit" id="btn-update" class="regular-button button-primary">Update</button>
+			</form>
+		</div>
+	</section>
+{% endblock %}

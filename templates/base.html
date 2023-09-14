@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{% block title %}{% endblock %}</title>
+		<meta name="description" content="FitTracker is a powerful activity tracking platform that helps you achieve your fitness goals. Keep track of your workouts, and measure progress with our easy-to-use interface. Sign up now to start your fitness journey!">
+		<meta property="og:title" content="FitTracker - Track Your Fitness Progress">
+		<meta property="og:description" content="FitTracker is a powerful activity tracking platform that helps you achieve your fitness goals. Keep track of your workouts, and measure progress with our easy-to-use interface.">
+		<meta property="og:image" content="{{ url_for('static', filename='images/social_share.png') }}">
+		<meta property="og:url" content="https://www.fittracker.com">
+		<meta name="twitter:title" content="FitTracker - Track Your Fitness Progress">
+		<meta name="twitter:description" content="FitTracker is a powerful activity tracking platform that helps you achieve your fitness goals. Keep track of your workouts, and measure progress with our easy-to-use interface.">
+		<meta name="twitter:image" content="{{ url_for('static', filename='images/social_share.png') }}">
+		<meta name="twitter:card" content="summary_large_image">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
+		<link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='icons/apple-icon-57x57.png') }}">
+		<link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='icons/apple-icon-60x60.png') }}">
+		<link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='icons/apple-icon-72x72.png') }}">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='icons/apple-icon-76x76.png') }}">
+		<link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='icons/apple-icon-114x114.png') }}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='icons/apple-icon-120x120.png') }}">
+		<link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='icons/apple-icon-144x144.png') }}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='icons/apple-icon-152x152.png') }}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/apple-icon-180x180.png') }}">
+		<link rel="icon" type="image/png" sizes="192x192"  href="{{ url_for('static', filename='icons/android-icon-192x192.png') }}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/favicon-32x32.png') }}">
+		<link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='icons/favicon-96x96.png') }}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
+		<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+		{% block css %}
+		{% endblock %}
+	</head>
+	<body>
+		<nav id="nav">
+			<div id="nav-wrapper">
+				<a id="home-link" href="{{ url_for('home') }}">
+					<img class="logo-img" src="{{ url_for('static', filename='logos/logo.png')}}" alt="FitTracker Logo" width="60" height="60">
+				</a>
+				<ul id="nav-menu">
+					{% if session.user and session.user_type == 1 %}
+						<li class="nav-item">
+							<a href="{{ url_for('viewfeedback') }}">View Feedback</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('viewusers') }}">View Users</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('logout') }}">Logout</a>
+						</li>
+					{% elif session.user %}
+						<li class="nav-item">
+							<a href="{{ url_for('dashboard') }}">Dashboard</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('activities') }}">My Activities</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('rankings') }}">Rankings</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('personalstats') }}">Personal Stats</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('logout') }}">Logout</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('profile') }}">Profile</a>
+						</li>
+					{% else %}
+						<li class="nav-item">
+							<a href="{{ url_for('login') }}">Login</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ url_for('signup') }}">Sign Up</a>
+						</li>
+					{% endif %}
+				</ul>
+				<div id="mobile-menu-toggle" class="material-symbols-outlined">
+					menu
+				</div>
+			</div>
+			<div id="nav-off-canvas">
+				<div id="nav-off-canvas-header">
+					<a id="home-link" href="{{ url_for('home') }}">
+						<img class="logo-img" src="{{ url_for('static', filename='logos/logo_name.png')}}" alt="FitTracker Logo" width="150" height="36">
+					</a>
+					<div id="btn-close-off-canvas" class="material-symbols-outlined">
+						close
+					</div>
+				</div>
+				<div id="nav-off-canvas-body">
+					<ul id="off-canvas-menu">
+						{% if session.user and session.user_type == 1 %}
+							<li class="nav-item">
+								<a href="{{ url_for('viewfeedback') }}">View Feedback</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('viewusers') }}">View Users</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('logout') }}">Logout</a>
+							</li>
+						{% elif session.user %}
+							<li class="nav-item">
+								<a href="{{ url_for('dashboard') }}">Dashboard</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('activities') }}">My Activities</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('rankings') }}">Rankings</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('personalstats') }}">Personal Stats</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('logout') }}">Logout</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('profile') }}">Profile</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a href="{{ url_for('login') }}">Login</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ url_for('signup') }}">Sign Up</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<main class="bg-lightgrey">
+			<!-- Show flash message -->
+			{% with messages = get_flashed_messages(with_categories = True) %} 
+				{% if messages %} 
+					{% for category, message in messages %} 
+						<div class="flash-message-container">
+							<div class="{{ category }}-message">
+								{{ message }}
+							</div>
+						</div>
+					{% endfor %} 
+				{% endif %}
+			{% endwith %}
+
+			<!-- Add dynamic content -->
+			{% block content %} {% endblock %}
+		</main>
+		<footer>
+			<div id="footer-container" class="container">
+				<div class="footer-group">
+					<a id="home-link" href="{{ url_for('home') }}">
+						<img class="logo_img" src="{{ url_for('static', filename='logos/logo_name.png')}}" 
+							alt="FitTracker Logo" width="200" height="48">
+					</a>
+				</div>
+				<div class="footer-group">
+					<h6>MEMBERS</h6>
+					{% if session.user and session.user_type == 1 %}
+						<a href="{{ url_for('viewfeedback') }}">View Feedback</a>
+						<a href="{{ url_for('viewusers') }}">View Users</a>
+					{% else %}
+						<a href="{{ url_for('dashboard') }}">Dashboard</a>
+						<a href="{{ url_for('activities') }}">My Activities</a>
+						<a href="{{ url_for('rankings') }}">Rankings</a>
+						<a href="{{ url_for('personalstats') }}">Personal Stats</a>
+						<a href="{{ url_for('profile') }}">Profile</a>
+					{% endif %}
+				</div>
+				<div class="footer-group">
+					<h6>FIT TRACKER</h6>
+					<a href="{{ url_for('about') }}">About FitTracker</a>
+					<a href="{{ url_for('contact') }}">Contact Us</a>
+				</div>
+				<div class="footer-group">
+					<small>
+						Copyright<br>
+						Christopher Lee (1009161764)<br>
+						&copy; 2023 
+					</small>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Add global.js -->
+		<script src="{{ url_for('static', filename='js/global.js') }}"></script>
+
+		<!-- Add dynamic javaScript for pages if exists -->
+		{% block javascript %}
+		{% endblock %}
+	</body>
+</html>

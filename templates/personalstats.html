@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Personal Stats - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/personal-stats.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section id="personal-stats-section" class="bg-lightgrey">
+		<div class="container">
+			<div id="personal-stats-header">
+				<h5>My Stats</h5>
+				<button id="btn-add-personal-stats" class="button-primary regular-button">Add Stats</button>
+			</div>
+			<div id="add-personal-stats-form-container" class="card hidden">
+				<h6>Log Stats</h6>
+				<form action="api/personalstat" method="POST">
+					<input type="hidden" name="user-id" value="{{ user.id }}">
+					<div class="form-input inline-input">
+						<label for="height-id">Height (cm)</label>
+						<input type="number" id="height" name="height" min="0" max="999" required>
+					</div>
+					<div class="form-input inline-input">
+						<label for="body-weight">Weight (kg)</label>
+						<input type="number" id="body-weight" name="body-weight" min="0" max="999" required>
+					</div>
+					<div class="form-input inline-input">
+						<label for="date-created">Date</label>
+						<input type="date" id="date-created" name="date-created" required>
+					</div>
+					<button type="submit" id="btn-add-personal-stats" class="button-primary regular-button">Submit</button>
+				</form>
+			</div>
+			<table>
+				<colgroup>
+					<col style="width:24%" />
+					<col style="width:24%" />
+					<col style="width:24%" />
+					<col style="width:24%" />
+					<col style="width:4%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">Height (cm)</th>
+					<th class="text-center">Weight (kg)</th>
+					<th class="text-center">BMI</th>
+					<th class="text-center">Date</th>
+					<th class="text-center"></th>
+				</tr>
+				{% if not user_physical_stats %}
+					<tr>
+						<td colspan="5" class="text-center">No personal stats logged yet.</td>
+					</tr>
+				{% endif %}
+                {% for user_stat in user_physical_stats %}
+					<tr>
+						<td class="text-center">{{ user_stat.height }}</td>
+						<td class="text-center">{{ user_stat.body_weight }}</td>
+						<td class="text-center">{{ user_stat.bmi }}</td>
+						<td class="text-center">{{ user_stat.date_created }}</td>
+						<td>
+							<form action="api/deletepersonalstats" method="POST" onsubmit="return confirmDelete()">
+								<input type="hidden" name="user-id" value="{{user_stat.user_id}}">
+								<input type="hidden" name="stat-id" value="{{user_stat.id}}">
+								<button type="submit" class="button-delete material-symbols-outlined">delete</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>  
+	</section>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		const buttonAddPersonalStats = document.querySelector('#btn-add-personal-stats');
+		const addPersonalStatsForm = document.querySelector('#add-personal-stats-form-container');
+		function showAddPersonalStatsForm() {
+			addPersonalStatsForm.classList.toggle('hidden');
+		}
+		buttonAddPersonalStats.addEventListener('click', showAddPersonalStatsForm);
+
+		function confirmDelete() {
+			return confirm('Are you sure you want to delete this activity?');
+		}
+	</script>
+{% endblock %}

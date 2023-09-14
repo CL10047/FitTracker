@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Activities - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/activities.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section id="dashboard-section" class="bg-lightgrey">
+		<div class="container">
+			<div id="activities-header">
+				<h5>My Activities</h5>
+				<button id="btn-add-activity" class="button-primary regular-button">Add Activity</button>
+			</div>
+			<div id="add-activity-form-container" class="card hidden">
+				<h6>Log Activity</h6>
+				<form action="api/activity" method="POST">
+					<input type="hidden" name="user-id" value="{{ user.id }}">
+					<div class="form-input inline-input">
+						<label for="exercise-id">Exercise Type</label>
+						<select id="exercise-id" name="exercise-id" required>
+							<option value="" selected disabled>Please Select</option>
+							{% for exercise in exercises %}
+								<option value="{{ exercise.id }}">{{ exercise.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form-input inline-input">
+						<label for="exercise-weight">Weight (lbs)</label>
+						<input type="number" id="exercise-weight" name="exercise-weight" min="0" max="999" required>
+					</div>
+					<div class="form-input inline-input">
+						<label for="exercise-reps">Reps</label>
+						<input type="number" id="exercise-reps" name="exercise-reps" min="0" max="999" required>
+					</div>
+					<div class="form-input inline-input">
+						<label for="exercise-sets">Sets</label>
+						<input type="number" id="exercise-sets" name="exercise-sets" min="0" max="999" required>
+					</div>
+					<div class="form-input inline-input">
+						<label for="exercise-date">Date</label>
+						<input type="date" id="exercise-date" name="exercise-date" required>
+					</div>
+					<button type="submit" id="btn-submit-activity" class="button-primary regular-button">Submit</button>
+				</form>
+			</div>
+			<table>
+				<colgroup>
+					<col style="width:31%" />
+					<col style="width:16%" />
+					<col style="width:16%" />
+					<col style="width:16%" />
+					<col style="width:16%" />
+					<col style="width:5%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">Exercise</th>
+					<th class="text-center">Weight (lbs)</th>
+					<th class="text-center">Reps</th>
+					<th class="text-center">Sets</th>
+					<th class="text-center">Date</th>
+					<th class="text-center"></th>
+				</tr>
+				{% if not user_exercises_history %}
+					<tr>
+						<td colspan="6" class="text-center">No activities logged yet.</td>
+					</tr>
+				{% endif %}
+				{% for user_exercise, exercise_name in user_exercises_history %}
+					<tr>
+						<td class="text-center">{{ exercise_name }}</td>
+						<td class="text-center">{{ user_exercise.weight }}</td>
+						<td class="text-center">{{ user_exercise.reps }}</td>
+						<td class="text-center">{{ user_exercise.sets }}</td>
+						<td class="text-center">{{ user_exercise.date_created }}</td>
+						<td>
+							<form action="api/deleteactivity" method="POST" onsubmit="return confirmDelete()">
+								<input type="hidden" name="user-id" value="{{user_exercise.user_id}}">
+								<input type="hidden" name="exercise-id" value="{{user_exercise.id}}">
+								<button type="submit" class="button-delete material-symbols-outlined">delete</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>  
+	</section>
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		const buttonAddActivity = document.querySelector('#btn-add-activity');
+		const addActivityForm = document.querySelector('#add-activity-form-container');
+		function showAddActivityForm() {
+			addActivityForm.classList.toggle('hidden');
+		}
+		buttonAddActivity.addEventListener('click', showAddActivityForm);
+
+		function confirmDelete() {
+			return confirm('Are you sure you want to delete this activity?');
+		}
+	</script>
+{% endblock %}

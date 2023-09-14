@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Dashboard - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section id="dashboard-section" class="bg-lightgrey">
+		<div class="container">
+			<h5>Dashboard</h5>
+
+			<div class="greetings">
+				{% if user.nickname %}
+					<p class="h5">Welcome back, {{ user.nickname }}!</p>
+				{% else %}
+					<p class="h5">Welcome back, {{ user.email }}!</p>
+				{% endif %}
+			</div>
+
+			<h6>Stats</h6>
+			<div class="summary">
+				<div class="card summary-card">
+					<span class="summary-value">
+						{{ total_activities }}
+					</span>
+					<span class="summary-label">
+						Activities
+					</span>
+				</div>
+
+				<div class="card summary-card">
+					<span class="summary-value">
+						{{ bmi}}
+					</span>
+					<span class="summary-label">
+						Your BMI
+					</span>
+				</div>
+
+			</div>
+
+			<h6>Personal records</h6>
+			<div class="summary">
+				{% if not user_physical_stats %}
+					<p>No Personal Records yet, log them in the <a href="{{ url_for('activities') }}">My Activities</a> pages!</p>
+				{% endif %}
+				{% for exercise in user_top_weights %}
+					<div class="card summary-card">
+						<span class="summary-value">
+							{{ exercise.max_weight }} lbs
+						</span>
+						<span class="summary-label">
+							{{ exercise.name }}
+						</span>
+					</div>
+				{% endfor %}
+			</div>
+		</div>  
+	</section>
+{% endblock %}
+

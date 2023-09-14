@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+	FitTracker - Get Fit, Stay on Track
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section class="bg-dark text-white">
+		<div class="container">
+			<div class="hero">	
+				<div class="content-container">
+					<h1>
+						Get <span class="text-secondary">Fit</span>, <br> Stay On <span class="text-secondary">Track</span>
+					</h1>
+					<p class="subheading">
+						Welcome to <span class="text_primary">FitTracker</span>, the ultimate platform for fitness enthusiasts. 
+					</p>
+					<a href="{{ url_for('login') }}" title="Get Started">
+						<button id="btn-login" class="large-button button-primary" type="button">Get Started</button>
+					</a>
+				</div>
+				<div class="img-container">
+					<!-- 
+						Image source: https://www.pexels.com/photo/grayscale-photography-of-man-carrying-barbell-896058/ 
+						Photographer: DreamLens Production
+						License: Free to use, Attribution is not required.
+					-->
+					<img src="{{ url_for('static', filename='images/pexels-dreamlens-production-896058.jpg') }}" alt="Hero image" width="640" height="427">
+					<figcaption class="text-mediumgrey ">Photographer: DreamLens Production</figcaption>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="bg-mediumgrey">
+		<div class="container">
+			<div id="inro-site">
+				<h2>What is FitTracker?</h2>
+				<p class="h5">
+					FitTracker is a powerful activity tracking platform that helps you achieve your fitness goals. Keep track of your workouts, and measure progress with our easy-to-use interface. 
+				</p>
+			</div>
+		</div>
+	</section>
+	<section class="bg-white">
+		<div class="container">
+			<div id="exercises">
+				{% for exercise in exercises %}
+					<div class="card exercise-card">
+						<iframe width="560" height="315" src="{{ exercise.how_to_video }}" 
+							title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+							encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+						<div class="card-content">
+							<h3>{{ exercise.name }}</h3>
+							<p>
+								{{ exercise.description }}
+							</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

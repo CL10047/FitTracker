@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+	View Users - FitTracker
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/viewusers.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section class="bg-dark text-white">
+		<div class="container">
+			<h1 class="h3">
+                Admins:
+            </h1>
+            <table>
+				<colgroup>
+					<col style="width:50%" />
+					<col style="width:40%" />
+                    <col style="width:10%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">Email</th>
+					<th class="text-center">Nickname</th>
+                    <th class="text-center">ID</th>
+				</tr>
+				{% if not admins %}
+					<tr>
+						<td colspan="4" class="text-center">No admins yet.</td>
+					</tr>
+				{% endif %}
+                {% for admin in admins %}
+					<tr>
+                        <td class="text-center">{{ admin.email }}</td>
+                        {% if admin.nickname == "" %}
+                            <td class="text-center">N/A</td>
+                        {% else %}
+						    <td class="text-center">{{ admin.nickname }}</td>
+                        {% endif %}
+                        <td class="text-center">{{ admin.id }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+            <h1 class="h3">
+                Users:
+            </h1>
+            <table>
+				<colgroup>
+					<col style="width:50%" />
+					<col style="width:40%" />
+                    <col style="width:10%" />
+				</colgroup>
+				<tr>
+					<th class="text-center">Email</th>
+					<th class="text-center">Nickname</th>
+                    <th class="text-center">ID</th>
+				</tr>
+				{% if not users %}
+					<tr>
+						<td colspan="4" class="text-center">No users yet.</td>
+					</tr>
+				{% endif %}
+                {% for user in users %}
+					<tr>
+                        <td class="text-center">{{ user.email }}</td>
+                        {% if user.nickname == "" %}
+                            <td class="text-center">N/A</td>
+                        {% else %}
+						    <td class="text-center">{{ user.nickname }}</td>
+                        {% endif %}
+                            <td class="text-center">{{ user.id }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</section>
+{% endblock %}

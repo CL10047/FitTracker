@@ -1,0 +1,47 @@
+.content-container, .img-container {
+    padding: 0 15px;
+    text-align: center;
+}
+.content-container {
+    margin-bottom: 2rem;
+}
+.img-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+.subheading {
+    font-size: 2rem;
+}
+figcaption{
+    font-size: 0.7rem;
+    font-style: italic;
+    text-align: right;
+}
+#inro-site{
+    text-align: center;
+}
+h2{
+    margin-bottom: 2rem;
+}
+.exercise-card {
+    margin-bottom: 2rem;
+}
+.exercise-card iframe{
+    margin-bottom: 1rem;
+}
+@media screen and (min-width: 1024px) {
+    .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .content-container {
+        width: 50%;
+        margin-bottom: 0;
+        text-align: left;
+    }
+    .img-container {
+        width: 50%;
+    }
+}

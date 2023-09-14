@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+	FitTracker - Get Fit, Stay on Track
+{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+	<section class="bg-dark text-white">
+		<div class="container">
+			<h1 class="h3">
+                About FitTracker
+            </h1>
+			<br>
+			<h6>
+				FitTracker is a project created as an assignment for CSCB20 at University of Toronto Scarborough Campus by Christopher Lee. 
+			</h6>
+		</div>
+	</section>
+{% endblock %}

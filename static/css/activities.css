@@ -1,0 +1,40 @@
+#activities-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+#add-activity-form-container {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+#add-activity-form-container h6 {
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table th, td {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    background-color: var(--white);
+}
+table th {
+    background-color: var(--flash-info-bg);
+    color: var(--flash-info-color);
+}
+.inline-input {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1em;
+}
+.inline-input label {
+    margin-right: 1em;
+    width: 100px;
+}
+.inline-input input, .inline-input select {
+    flex: 1;
+}
